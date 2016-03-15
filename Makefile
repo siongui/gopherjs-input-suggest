@@ -2,7 +2,7 @@ export GOROOT=$(realpath ../go)
 export GOPATH=$(realpath .)
 export PATH := $(GOROOT)/bin:$(GOPATH)/bin:$(PATH)
 
-devserver: js
+devserver: local js
 	@echo "\033[92mDevelopment Server Running ...\033[0m"
 	@go run example/server.go
 
@@ -14,6 +14,9 @@ fmt:
 	@echo "\033[92mGo fmt source code...\033[0m"
 	@go fmt *.go
 	@go fmt example/*.go
+
+local:
+	@cp suggest.go src/github.com/siongui/gopherjs-input-suggest/
 
 install:
 	@echo "\033[92mInstalling GopherJS ...\033[0m"

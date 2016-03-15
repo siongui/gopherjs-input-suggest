@@ -58,6 +58,12 @@ func appendWords(sm *js.Object, words []string) {
 	sm.Get("classList").Call("remove", "invisible")
 }
 
+func setSuggestMenuLeftPosition(input, sm *js.Object) {
+	rect := input.Call("getBoundingClientRect")
+	left := rect.Get("left").String()
+	sm.Get("style").Set("left", left+"px")
+}
+
 func BindSuggest(id string, fnSugguestWords func(string) []string) {
 	input := js.Global.Get("document").Call("getElementById", id)
 	// insert style of suggest-menu at the end of head element
@@ -82,6 +88,7 @@ func BindSuggest(id string, fnSugguestWords func(string) []string) {
 			if len(suggestedWords) == 0 {
 				sm.Get("classList").Call("add", "invisible")
 			} else {
+				setSuggestMenuLeftPosition(input, sm)
 				appendWords(sm, suggestedWords)
 			}
 		}
