@@ -36,6 +36,8 @@ Go_:
   	return frozenTrie.GetSuggestedWords(w, 30)
   })
 
+see `example <example>`_ for more details.
+
 
 UNLICENSE
 +++++++++
