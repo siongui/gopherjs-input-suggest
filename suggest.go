@@ -2,6 +2,7 @@ package suggest
 
 import (
 	"github.com/gopherjs/gopherjs/js"
+	gojs "github.com/siongui/gopherjs-utils"
 	"strings"
 )
 
@@ -29,12 +30,6 @@ var css = `
 }
 `
 
-func removeAllChildNodes(elm *js.Object) {
-	for elm.Call("hasChildNodes").Bool() {
-		elm.Call("removeChild", elm.Get("lastChild"))
-	}
-}
-
 func createStyle() *js.Object {
 	s := js.Global.Get("document").Call("createElement", "style")
 	s.Set("innerHTML", css)
@@ -49,7 +44,7 @@ func createSuggestMenu() *js.Object {
 }
 
 func appendWords(sm *js.Object, words []string) {
-	removeAllChildNodes(sm)
+	gojs.RemoveAllChildNodes(sm)
 	for _, word := range words {
 		div := js.Global.Get("document").Call("createElement", "div")
 		div.Set("textContent", word)
@@ -59,9 +54,8 @@ func appendWords(sm *js.Object, words []string) {
 }
 
 func setSuggestMenuLeftPosition(input, sm *js.Object) {
-	rect := input.Call("getBoundingClientRect")
-	left := rect.Get("left").String()
-	sm.Get("style").Set("left", left+"px")
+	rect := gojs.GetPosition(input)
+	sm.Get("style").Set("left", rect.Left+"px")
 }
 
 func BindSuggest(id string, fnSugguestWords func(string) []string) {
@@ -70,7 +64,7 @@ func BindSuggest(id string, fnSugguestWords func(string) []string) {
 	js.Global.Get("document").Call("getElementsByTagName", "head").Call("item", 0).Call("appendChild", createStyle())
 	// insert suggest-menu after input
 	sm := createSuggestMenu()
-	input.Get("parentNode").Call("insertBefore", sm, input.Get("nextSibling"))
+	gojs.InsertAfter(sm, input)
 
 	input.Call("addEventListener", "keyup", func(event *js.Object) {
 		keycode := event.Get("keyCode").Int()

@@ -50,13 +50,7 @@ References
 
 .. [1] `Element.classList - Web APIs | MDN <https://developer.mozilla.org/en/docs/Web/API/Element/classList>`_
 
-.. [2] `How to do insert After() in JavaScript without using a library? - Stack Overflow <http://stackoverflow.com/questions/4793604/how-to-do-insert-after-in-javascript-without-using-a-library>`_
-
-.. [3] `javascript element position <https://www.google.com/search?q=javascript+element+position>`_
-
-       `javascript - Retrieve the position (X,Y) of an HTML element - Stack Overflow <http://stackoverflow.com/questions/442404/retrieve-the-position-x-y-of-an-html-element>`_
-
-.. [4] `javascript set left position <https://www.google.com/search?q=javascript+set+left+position>`_
+.. [2] `javascript set left position <https://www.google.com/search?q=javascript+set+left+position>`_
 
        `HTML DOM Style left Property - W3Schools <http://www.w3schools.com/jsref/prop_style_left.asp>`_
 
