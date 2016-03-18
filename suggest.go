@@ -53,9 +53,10 @@ func appendWords(sm *js.Object, words []string) {
 	sm.Get("classList").Call("remove", "invisible")
 }
 
-func setSuggestMenuLeftPosition(input, sm *js.Object) {
+func setSuggestMenuStyle(input, sm *js.Object) {
 	rect := gojs.GetPosition(input)
 	sm.Get("style").Set("left", rect.Left+"px")
+	sm.Get("style").Set("minWidth", rect.Width+"px")
 }
 
 func BindSuggest(id string, fnSugguestWords func(string) []string) {
@@ -82,7 +83,7 @@ func BindSuggest(id string, fnSugguestWords func(string) []string) {
 			if len(suggestedWords) == 0 {
 				sm.Get("classList").Call("add", "invisible")
 			} else {
-				setSuggestMenuLeftPosition(input, sm)
+				setSuggestMenuStyle(input, sm)
 				appendWords(sm, suggestedWords)
 			}
 		}

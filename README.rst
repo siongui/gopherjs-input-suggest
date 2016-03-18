@@ -54,6 +54,10 @@ References
 
        `HTML DOM Style left Property - W3Schools <http://www.w3schools.com/jsref/prop_style_left.asp>`_
 
+.. [3] `javascript min width <https://www.google.com/search?q=javascript+min+width>`_
+
+       `HTML DOM Style minWidth Property - W3Schools <http://www.w3schools.com/jsref/prop_style_minwidth.asp>`_
+
 
 .. _Ubuntu 15.10: http://releases.ubuntu.com/15.10/
 .. _Go 1.6: https://golang.org/dl/
