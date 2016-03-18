@@ -3,7 +3,6 @@ package suggest
 import (
 	"github.com/gopherjs/gopherjs/js"
 	gojs "github.com/siongui/gopherjs-utils"
-	"strings"
 )
 
 const (
@@ -30,22 +29,22 @@ func setSuggestMenuStyle(input, sm *js.Object) {
 	sm.Get("style").Set("minWidth", rect.Width+"px")
 }
 
-func keyEventHandler(keycode int, input, sm *js.Object, fnSugguestWords func(string) []string) {
+func keyEventHandler(keycode int, state *SuggestMenuStateMachine) {
 	if keycode == RETURN {
-		sm.Get("classList").Call("add", "invisible")
+		state.HideSuggestMenu()
 		return
 	}
 
-	w := strings.TrimSpace(input.Get("value").String())
+	w := state.GetWord()
 	if w == "" {
-		sm.Get("classList").Call("add", "invisible")
+		state.HideSuggestMenu()
 	} else {
-		suggestedWords := fnSugguestWords(w)
+		suggestedWords := state.FuncSugguestWords(w)
 		if len(suggestedWords) == 0 {
-			sm.Get("classList").Call("add", "invisible")
+			state.HideSuggestMenu()
 		} else {
-			setSuggestMenuStyle(input, sm)
-			appendWords(sm, suggestedWords)
+			setSuggestMenuStyle(state.Input, state.SuggestMenu)
+			appendWords(state.SuggestMenu, suggestedWords)
 		}
 	}
 }

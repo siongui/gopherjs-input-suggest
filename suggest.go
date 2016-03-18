@@ -51,8 +51,10 @@ func BindSuggest(id string, fnSugguestWords func(string) []string) {
 	sm := createSuggestMenu()
 	gojs.InsertAfter(sm, input)
 
+	state := NewSuggestMenuStateMachine(input, sm, fnSugguestWords)
+
 	input.Call("addEventListener", "keyup", func(event *js.Object) {
 		keycode := event.Get("keyCode").Int()
-		keyEventHandler(keycode, input, sm, fnSugguestWords)
+		keyEventHandler(keycode, state)
 	}, false)
 }
