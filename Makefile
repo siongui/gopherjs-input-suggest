@@ -17,6 +17,7 @@ fmt:
 
 local:
 	@cp suggest.go src/github.com/siongui/gopherjs-input-suggest/
+	@cp keyevent.go src/github.com/siongui/gopherjs-input-suggest/
 
 install:
 	@echo "\033[92mInstalling GopherJS ...\033[0m"
