@@ -42,22 +42,7 @@ func createSuggestMenu() *js.Object {
 	return sm
 }
 
-func appendWords(sm *js.Object, words []string) {
-	gojs.RemoveAllChildNodes(sm)
-	for _, word := range words {
-		div := js.Global.Get("document").Call("createElement", "div")
-		div.Set("textContent", word)
-		sm.Call("appendChild", div)
-	}
-	sm.Get("classList").Call("remove", "invisible")
-}
-
-func setSuggestMenuStyle(input, sm *js.Object) {
-	rect := gojs.GetPosition(input)
-	sm.Get("style").Set("left", rect.Left+"px")
-	sm.Get("style").Set("minWidth", rect.Width+"px")
-}
-
+// initialization function
 func BindSuggest(id string, fnSugguestWords func(string) []string) {
 	input := js.Global.Get("document").Call("getElementById", id)
 	// insert style of suggest-menu at the end of head element
