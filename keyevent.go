@@ -19,6 +19,11 @@ func keyEventHandler(keycode int, state *SuggestMenuStateMachine) {
 		return
 	}
 
+	if keycode == DOWN {
+		state.HandleArrowDown()
+		return
+	}
+
 	w := state.GetWord()
 	if w == "" {
 		state.HideSuggestMenu()

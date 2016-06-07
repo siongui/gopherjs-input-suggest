@@ -64,6 +64,15 @@ func (s *SuggestMenuStateMachine) UpdateSuggestMenu(word string) {
 }
 
 func (s *SuggestMenuStateMachine) HandleArrowUp() {
+	if !s.IsShowSuggestMenu {
+		w := s.GetWord()
+		if w != "" {
+			// If suggestion menu is hidden and user input is not empty
+			s.UpdateSuggestMenu(w)
+		}
+		return
+	}
+
 	s.CurrentSelectedWordIndex -= 1
 
 	if s.CurrentSelectedWordIndex == -2 {
@@ -75,6 +84,29 @@ func (s *SuggestMenuStateMachine) HandleArrowUp() {
 		s.SuggestedWordsDivs[s.CurrentSelectedWordIndex].Get("classList").Call("add", "wordSelected")
 		if s.CurrentSelectedWordIndex < len(s.SuggestedWordsDivs)-1 {
 			s.SuggestedWordsDivs[s.CurrentSelectedWordIndex+1].Get("classList").Call("remove", "wordSelected")
+		}
+	}
+}
+
+func (s *SuggestMenuStateMachine) HandleArrowDown() {
+	if !s.IsShowSuggestMenu {
+		w := s.GetWord()
+		if w != "" {
+			// If suggestion menu is hidden and user input is not empty
+			s.UpdateSuggestMenu(w)
+		}
+		return
+	}
+
+	s.CurrentSelectedWordIndex += 1
+
+	if s.CurrentSelectedWordIndex == len(s.SuggestedWordsDivs) {
+		s.CurrentSelectedWordIndex = -1
+		s.SuggestedWordsDivs[len(s.SuggestedWordsDivs)-1].Get("classList").Call("remove", "wordSelected")
+	} else {
+		s.SuggestedWordsDivs[s.CurrentSelectedWordIndex].Get("classList").Call("add", "wordSelected")
+		if s.CurrentSelectedWordIndex > 0 {
+			s.SuggestedWordsDivs[s.CurrentSelectedWordIndex-1].Get("classList").Call("remove", "wordSelected")
 		}
 	}
 }
