@@ -40,7 +40,7 @@ Go_:
   	return frozenTrie.GetSuggestedWords(w, 30)
   })
 
-see `example <example>`_ for complete example.
+See `example <example>`_ directory for complete example.
 
 
 UNLICENSE
