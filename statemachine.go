@@ -13,6 +13,8 @@ type SuggestMenuStateMachine struct {
 	CurrentSelectedWordIndex int
 	IsShowSuggestMenu        bool
 	SuggestedWordsDivs       []*js.Object
+	OriginalWord             string
+	SuggestedWords           []string
 }
 
 func NewSuggestMenuStateMachine(input, sm *js.Object, fnSugguestWords func(string) []string) *SuggestMenuStateMachine {
@@ -27,6 +29,10 @@ func NewSuggestMenuStateMachine(input, sm *js.Object, fnSugguestWords func(strin
 
 func (s *SuggestMenuStateMachine) GetWord() string {
 	return strings.TrimSpace(s.Input.Get("value").String())
+}
+
+func (s *SuggestMenuStateMachine) SetWord(word string) {
+	s.Input.Set("value", word)
 }
 
 func (s *SuggestMenuStateMachine) HideSuggestMenu() {
@@ -65,12 +71,13 @@ func (s *SuggestMenuStateMachine) UnhighlightSelectedWord(index int) {
 }
 
 func (s *SuggestMenuStateMachine) UpdateSuggestMenu(word string) {
-	suggestedWords := s.FuncSugguestWords(word)
-	if len(suggestedWords) == 0 {
+	s.OriginalWord = word
+	s.SuggestedWords = s.FuncSugguestWords(word)
+	if len(s.SuggestedWords) == 0 {
 		s.HideSuggestMenu()
 	} else {
 		s.setSuggestMenuPosition()
-		s.appendWords(suggestedWords)
+		s.appendWords(s.SuggestedWords)
 		s.ShowSuggestMenu()
 	}
 }
@@ -90,10 +97,13 @@ func (s *SuggestMenuStateMachine) HandleArrowUp() {
 	if s.CurrentSelectedWordIndex == -2 {
 		s.CurrentSelectedWordIndex = len(s.SuggestedWordsDivs) - 1
 		s.HighlightSelectedWord(s.CurrentSelectedWordIndex)
+		s.SetWord(s.SuggestedWords[s.CurrentSelectedWordIndex])
 	} else if s.CurrentSelectedWordIndex == -1 {
 		s.UnhighlightSelectedWord(0)
+		s.SetWord(s.OriginalWord)
 	} else {
 		s.HighlightSelectedWord(s.CurrentSelectedWordIndex)
+		s.SetWord(s.SuggestedWords[s.CurrentSelectedWordIndex])
 		if s.CurrentSelectedWordIndex < len(s.SuggestedWordsDivs)-1 {
 			s.UnhighlightSelectedWord(s.CurrentSelectedWordIndex + 1)
 		}
@@ -115,8 +125,10 @@ func (s *SuggestMenuStateMachine) HandleArrowDown() {
 	if s.CurrentSelectedWordIndex == len(s.SuggestedWordsDivs) {
 		s.UnhighlightSelectedWord(s.CurrentSelectedWordIndex - 1)
 		s.CurrentSelectedWordIndex = -1
+		s.SetWord(s.OriginalWord)
 	} else {
 		s.HighlightSelectedWord(s.CurrentSelectedWordIndex)
+		s.SetWord(s.SuggestedWords[s.CurrentSelectedWordIndex])
 		if s.CurrentSelectedWordIndex > 0 {
 			s.UnhighlightSelectedWord(s.CurrentSelectedWordIndex - 1)
 		}
