@@ -24,6 +24,11 @@ func keyEventHandler(keycode int, state *SuggestMenuStateMachine) {
 		return
 	}
 
+	if keycode == ESC {
+		state.HandleESC()
+		return
+	}
+
 	w := state.GetWord()
 	if w == "" {
 		state.HideSuggestMenu()

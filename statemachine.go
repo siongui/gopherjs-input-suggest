@@ -72,6 +72,7 @@ func (s *SuggestMenuStateMachine) UnhighlightSelectedWord(index int) {
 
 func (s *SuggestMenuStateMachine) UpdateSuggestMenu(word string) {
 	s.OriginalWord = word
+	s.CurrentSelectedWordIndex = -1
 	s.SuggestedWords = s.FuncSugguestWords(word)
 	if len(s.SuggestedWords) == 0 {
 		s.HideSuggestMenu()
@@ -133,4 +134,16 @@ func (s *SuggestMenuStateMachine) HandleArrowDown() {
 			s.UnhighlightSelectedWord(s.CurrentSelectedWordIndex - 1)
 		}
 	}
+}
+
+func (s *SuggestMenuStateMachine) HandleESC() {
+	if !s.IsShowSuggestMenu {
+		// clear user input if no suggestion menu and ESC key pressed
+		s.SetWord("")
+		s.SuggestedWords = nil
+		return
+	}
+	s.SetWord(s.OriginalWord)
+	s.SuggestedWords = nil
+	s.HideSuggestMenu()
 }
