@@ -56,6 +56,14 @@ func (s *SuggestMenuStateMachine) appendWords(words []string) {
 	}
 }
 
+func (s *SuggestMenuStateMachine) HighlightSelectedWord(index int) {
+	s.SuggestedWordsDivs[index].Get("classList").Call("add", "wordSelected")
+}
+
+func (s *SuggestMenuStateMachine) UnhighlightSelectedWord(index int) {
+	s.SuggestedWordsDivs[index].Get("classList").Call("remove", "wordSelected")
+}
+
 func (s *SuggestMenuStateMachine) UpdateSuggestMenu(word string) {
 	suggestedWords := s.FuncSugguestWords(word)
 	if len(suggestedWords) == 0 {
@@ -81,13 +89,13 @@ func (s *SuggestMenuStateMachine) HandleArrowUp() {
 
 	if s.CurrentSelectedWordIndex == -2 {
 		s.CurrentSelectedWordIndex = len(s.SuggestedWordsDivs) - 1
-		s.SuggestedWordsDivs[s.CurrentSelectedWordIndex].Get("classList").Call("add", "wordSelected")
+		s.HighlightSelectedWord(s.CurrentSelectedWordIndex)
 	} else if s.CurrentSelectedWordIndex == -1 {
-		s.SuggestedWordsDivs[s.CurrentSelectedWordIndex+1].Get("classList").Call("remove", "wordSelected")
+		s.UnhighlightSelectedWord(0)
 	} else {
-		s.SuggestedWordsDivs[s.CurrentSelectedWordIndex].Get("classList").Call("add", "wordSelected")
+		s.HighlightSelectedWord(s.CurrentSelectedWordIndex)
 		if s.CurrentSelectedWordIndex < len(s.SuggestedWordsDivs)-1 {
-			s.SuggestedWordsDivs[s.CurrentSelectedWordIndex+1].Get("classList").Call("remove", "wordSelected")
+			s.UnhighlightSelectedWord(s.CurrentSelectedWordIndex + 1)
 		}
 	}
 }
@@ -105,12 +113,12 @@ func (s *SuggestMenuStateMachine) HandleArrowDown() {
 	s.CurrentSelectedWordIndex += 1
 
 	if s.CurrentSelectedWordIndex == len(s.SuggestedWordsDivs) {
+		s.UnhighlightSelectedWord(s.CurrentSelectedWordIndex - 1)
 		s.CurrentSelectedWordIndex = -1
-		s.SuggestedWordsDivs[len(s.SuggestedWordsDivs)-1].Get("classList").Call("remove", "wordSelected")
 	} else {
-		s.SuggestedWordsDivs[s.CurrentSelectedWordIndex].Get("classList").Call("add", "wordSelected")
+		s.HighlightSelectedWord(s.CurrentSelectedWordIndex)
 		if s.CurrentSelectedWordIndex > 0 {
-			s.SuggestedWordsDivs[s.CurrentSelectedWordIndex-1].Get("classList").Call("remove", "wordSelected")
+			s.UnhighlightSelectedWord(s.CurrentSelectedWordIndex - 1)
 		}
 	}
 }
