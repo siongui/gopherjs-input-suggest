@@ -34,6 +34,11 @@ func (s *SuggestMenuStateMachine) HideSuggestMenu() {
 	s.IsShowSuggestMenu = false
 }
 
+func (s *SuggestMenuStateMachine) ShowSuggestMenu() {
+	s.SuggestMenu.Get("classList").Call("remove", "invisible")
+	s.IsShowSuggestMenu = true
+}
+
 func (s *SuggestMenuStateMachine) setSuggestMenuPosition() {
 	rect := gojs.GetPosition(s.Input)
 	s.SuggestMenu.Get("style").Set("left", rect.Left+"px")
@@ -49,8 +54,6 @@ func (s *SuggestMenuStateMachine) appendWords(words []string) {
 		s.SuggestedWordsDivs = append(s.SuggestedWordsDivs, div)
 		s.SuggestMenu.Call("appendChild", div)
 	}
-	s.SuggestMenu.Get("classList").Call("remove", "invisible")
-	s.IsShowSuggestMenu = true
 }
 
 func (s *SuggestMenuStateMachine) UpdateSuggestMenu(word string) {
@@ -60,6 +63,7 @@ func (s *SuggestMenuStateMachine) UpdateSuggestMenu(word string) {
 	} else {
 		s.setSuggestMenuPosition()
 		s.appendWords(suggestedWords)
+		s.ShowSuggestMenu()
 	}
 }
 
