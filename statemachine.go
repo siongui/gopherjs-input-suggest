@@ -96,6 +96,10 @@ func (s *SuggestMenuStateMachine) UnhighlightSelectedWord(index int) {
 }
 
 func (s *SuggestMenuStateMachine) UpdateSuggestMenu(word string) {
+	if s.OriginalWord == word {
+		return
+	}
+
 	s.OriginalWord = word
 	s.CurrentSelectedWordIndex = -1
 	s.SuggestedWords = s.FuncSugguestWords(word)
