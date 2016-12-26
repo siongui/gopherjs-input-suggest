@@ -51,11 +51,36 @@ func (s *SuggestMenuStateMachine) setSuggestMenuPosition() {
 	s.SuggestMenu.Get("style").Set("minWidth", rect.Width+"px")
 }
 
+func (s *SuggestMenuStateMachine) registerMouseenterEventToWordDiv(index int, word string, wordDiv *js.Object) {
+	// mouse enters the suggested word in suggestion menu
+	wordDiv.Call("addEventListener", "mouseenter", func(event *js.Object) {
+		if s.CurrentSelectedWordIndex > -1 &&
+			s.CurrentSelectedWordIndex < len(s.SuggestedWords) {
+			s.UnhighlightSelectedWord(s.CurrentSelectedWordIndex)
+		}
+
+		s.CurrentSelectedWordIndex = index
+		s.HighlightSelectedWord(s.CurrentSelectedWordIndex)
+		s.SetWord(word)
+	}, false)
+}
+
+func (s *SuggestMenuStateMachine) registerClickEventToWordDiv(wordDiv *js.Object) {
+	// suggested word clicked by mouse
+	wordDiv.Call("addEventListener", "click", func(event *js.Object) {
+		s.SuggestedWords = nil
+		s.HideSuggestMenu()
+		s.Input.Call("focus")
+	}, false)
+}
+
 func (s *SuggestMenuStateMachine) appendWords(words []string) {
 	s.SuggestedWordsDivs = nil
 	gojs.RemoveAllChildNodes(s.SuggestMenu)
-	for _, word := range words {
+	for index, word := range words {
 		div := js.Global.Get("document").Call("createElement", "div")
+		s.registerMouseenterEventToWordDiv(index, word, div)
+		s.registerClickEventToWordDiv(div)
 		div.Set("textContent", word)
 		s.SuggestedWordsDivs = append(s.SuggestedWordsDivs, div)
 		s.SuggestMenu.Call("appendChild", div)
