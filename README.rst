@@ -4,9 +4,9 @@ GopherJS_ Input Suggest Menu
 
 Development Environment:
 
-  - `Ubuntu 16.04`_
-    (``Chromium 50.0.2661.102 Ubuntu 16.04 (64-bit)``)
-  - `Go 1.6.2`_
+  - `Ubuntu 16.10`_
+    (``Chromium Version 55.0.2883.87 Built on Ubuntu , running on Ubuntu 16.10 (64-bit)``)
+  - `Go 1.7.4`_
 
 
 Install
@@ -68,8 +68,8 @@ References
        `HTML DOM Style minWidth Property - W3Schools <http://www.w3schools.com/jsref/prop_style_minwidth.asp>`_
 
 
-.. _Ubuntu 16.04: http://releases.ubuntu.com/16.04/
-.. _Go 1.6.2: https://golang.org/dl/
+.. _Ubuntu 16.10: http://releases.ubuntu.com/16.10/
+.. _Go 1.7.4: https://golang.org/dl/
 .. _HTML: https://www.google.com/search?q=HTML
 .. _Go: https://golang.org/
 .. _GopherJS: https://github.com/gopherjs/gopherjs
