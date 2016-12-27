@@ -48,7 +48,7 @@ func (s *SuggestMenuStateMachine) ShowSuggestMenu() {
 func (s *SuggestMenuStateMachine) setSuggestMenuPosition() {
 	rect := gojs.GetPosition(s.Input)
 	s.SuggestMenu.Get("style").Set("left", rect.Left+"px")
-	s.SuggestMenu.Get("style").Set("minWidth", rect.Width+"px")
+	s.SuggestMenu.Get("style").Set("maxWidth", rect.Width+"px")
 }
 
 func (s *SuggestMenuStateMachine) registerMouseenterEventToWordDiv(index int, word string, wordDiv *js.Object) {
