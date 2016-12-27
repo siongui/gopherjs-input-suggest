@@ -81,7 +81,14 @@ func (s *SuggestMenuStateMachine) appendWords(words []string) {
 		div := js.Global.Get("document").Call("createElement", "div")
 		s.registerMouseenterEventToWordDiv(index, word, div)
 		s.registerClickEventToWordDiv(div)
-		div.Set("textContent", word)
+
+		bold := js.Global.Get("document").Call("createElement", "strong")
+		bold.Set("textContent", s.OriginalWord)
+		div.Call("appendChild", bold)
+		suffix := js.Global.Get("document").Call("createTextNode",
+			strings.TrimPrefix(word, s.OriginalWord))
+		div.Call("appendChild", suffix)
+
 		s.SuggestedWordsDivs = append(s.SuggestedWordsDivs, div)
 		s.SuggestMenu.Call("appendChild", div)
 	}
