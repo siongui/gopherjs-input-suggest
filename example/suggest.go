@@ -16,11 +16,20 @@ func RandomString(strlen int) string {
 	return string(result)
 }
 
+func TestString(w string, count int) string {
+	const chars = "ABCDEFGHIJKLMNO"
+	for i := 0; i < count; i++ {
+		w += string(chars[i])
+	}
+	return w
+}
+
 func main() {
 	sg.BindSuggest("word", func(w string) []string {
 		var result []string
 		for i := 0; i < 10; i++ {
-			result = append(result, RandomString(len(w)))
+			//result = append(result, RandomString(len(w)))
+			result = append(result, TestString(w, i))
 		}
 		return result
 	})
