@@ -41,6 +41,7 @@ func keyEventHandler(keycode int, state *SuggestMenuStateMachine) {
 
 	w := state.GetWord()
 	if w == "" {
+		state.OriginalWord = ""
 		state.HideSuggestMenu()
 	} else {
 		state.UpdateSuggestMenu(w)
