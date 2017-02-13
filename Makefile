@@ -19,9 +19,7 @@ fmt:
 
 local:
 	@[ -d src/${PKG}/ ] || mkdir -p src/${PKG}/
-	@cp suggest.go src/${PKG}/
-	@cp keyevent.go src/${PKG}/
-	@cp statemachine.go src/${PKG}/
+	@cp *.go src/${PKG}/
 
 install:
 	@echo "\033[92mInstalling GopherJS and necessary packages ...\033[0m"
