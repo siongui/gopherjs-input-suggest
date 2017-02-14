@@ -1,23 +1,23 @@
 package suggest
 
 import (
-	"github.com/gopherjs/gopherjs/js"
-	gojs "github.com/siongui/gopherjs-utils"
+	. "github.com/siongui/godom"
+	"strconv"
 	"strings"
 )
 
 type SuggestMenuStateMachine struct {
-	Input                    *js.Object
-	SuggestMenu              *js.Object
+	Input                    *Object
+	SuggestMenu              *Object
 	FuncSugguestWords        func(string) []string
 	CurrentSelectedWordIndex int
 	IsShowSuggestMenu        bool
-	SuggestedWordsDivs       []*js.Object
+	SuggestedWordsDivs       []*Object
 	OriginalWord             string
 	SuggestedWords           []string
 }
 
-func NewSuggestMenuStateMachine(input, sm *js.Object, fnSugguestWords func(string) []string) *SuggestMenuStateMachine {
+func NewSuggestMenuStateMachine(input, sm *Object, fnSugguestWords func(string) []string) *SuggestMenuStateMachine {
 	return &SuggestMenuStateMachine{
 		Input:                    input,
 		SuggestMenu:              sm,
@@ -28,32 +28,34 @@ func NewSuggestMenuStateMachine(input, sm *js.Object, fnSugguestWords func(strin
 }
 
 func (s *SuggestMenuStateMachine) GetWord() string {
-	return strings.TrimSpace(s.Input.Get("value").String())
+	return strings.TrimSpace(s.Input.Value())
 }
 
 func (s *SuggestMenuStateMachine) SetWord(word string) {
-	s.Input.Set("value", word)
+	s.Input.SetValue(word)
 }
 
 func (s *SuggestMenuStateMachine) HideSuggestMenu() {
-	s.SuggestMenu.Get("classList").Call("add", "invisible")
+	s.SuggestMenu.ClassList().Add("invisible")
 	s.IsShowSuggestMenu = false
 }
 
 func (s *SuggestMenuStateMachine) ShowSuggestMenu() {
-	s.SuggestMenu.Get("classList").Call("remove", "invisible")
+	s.SuggestMenu.ClassList().Remove("invisible")
 	s.IsShowSuggestMenu = true
 }
 
 func (s *SuggestMenuStateMachine) setSuggestMenuPosition() {
-	rect := gojs.GetPosition(s.Input)
-	s.SuggestMenu.Get("style").Set("left", rect.Left+"px")
-	s.SuggestMenu.Get("style").Set("maxWidth", rect.Width+"px")
+	rect := s.Input.GetBoundingClientRect()
+	s.SuggestMenu.Get("style").Set("left",
+		strconv.FormatFloat(rect.Left(), 'f', -1, 64)+"px")
+	s.SuggestMenu.Get("style").Set("maxWidth",
+		strconv.FormatFloat(rect.Width(), 'f', -1, 64)+"px")
 }
 
-func (s *SuggestMenuStateMachine) registerMouseenterEventToWordDiv(index int, word string, wordDiv *js.Object) {
+func (s *SuggestMenuStateMachine) registerMouseenterEventToWordDiv(index int, word string, wordDiv *Object) {
 	// mouse enters the suggested word in suggestion menu
-	wordDiv.Call("addEventListener", "mouseenter", func(event *js.Object) {
+	wordDiv.AddEventListener("mouseenter", func(event Event) {
 		if s.CurrentSelectedWordIndex > -1 &&
 			s.CurrentSelectedWordIndex < len(s.SuggestedWords) {
 			s.UnhighlightSelectedWord(s.CurrentSelectedWordIndex)
@@ -62,44 +64,43 @@ func (s *SuggestMenuStateMachine) registerMouseenterEventToWordDiv(index int, wo
 		s.CurrentSelectedWordIndex = index
 		s.HighlightSelectedWord(s.CurrentSelectedWordIndex)
 		s.SetWord(word)
-	}, false)
+	})
 }
 
-func (s *SuggestMenuStateMachine) registerClickEventToWordDiv(wordDiv *js.Object) {
+func (s *SuggestMenuStateMachine) registerClickEventToWordDiv(wordDiv *Object) {
 	// suggested word clicked by mouse
-	wordDiv.Call("addEventListener", "click", func(event *js.Object) {
+	wordDiv.AddEventListener("click", func(event Event) {
 		s.SuggestedWords = nil
 		s.HideSuggestMenu()
-		s.Input.Call("focus")
-	}, false)
+		s.Input.Focus()
+	})
 }
 
 func (s *SuggestMenuStateMachine) appendWords(words []string) {
 	s.SuggestedWordsDivs = nil
-	gojs.RemoveAllChildNodes(s.SuggestMenu)
+	s.SuggestMenu.RemoveAllChildNodes()
 	for index, word := range words {
-		div := js.Global.Get("document").Call("createElement", "div")
+		div := Document.CreateElement("div")
 		s.registerMouseenterEventToWordDiv(index, word, div)
 		s.registerClickEventToWordDiv(div)
 
-		bold := js.Global.Get("document").Call("createElement", "strong")
-		bold.Set("textContent", s.OriginalWord)
-		div.Call("appendChild", bold)
-		suffix := js.Global.Get("document").Call("createTextNode",
-			strings.TrimPrefix(word, s.OriginalWord))
-		div.Call("appendChild", suffix)
+		bold := Document.CreateElement("strong")
+		bold.SetTextContent(s.OriginalWord)
+		div.AppendChild(bold)
+		suffix := Document.CreateTextNode(strings.TrimPrefix(word, s.OriginalWord))
+		div.AppendChild(suffix)
 
 		s.SuggestedWordsDivs = append(s.SuggestedWordsDivs, div)
-		s.SuggestMenu.Call("appendChild", div)
+		s.SuggestMenu.AppendChild(div)
 	}
 }
 
 func (s *SuggestMenuStateMachine) HighlightSelectedWord(index int) {
-	s.SuggestedWordsDivs[index].Get("classList").Call("add", "wordSelected")
+	s.SuggestedWordsDivs[index].ClassList().Add("wordSelected")
 }
 
 func (s *SuggestMenuStateMachine) UnhighlightSelectedWord(index int) {
-	s.SuggestedWordsDivs[index].Get("classList").Call("remove", "wordSelected")
+	s.SuggestedWordsDivs[index].ClassList().Remove("wordSelected")
 }
 
 func (s *SuggestMenuStateMachine) UpdateSuggestMenu(word string) {

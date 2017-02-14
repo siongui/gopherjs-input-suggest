@@ -24,7 +24,7 @@ local:
 install:
 	@echo "\033[92mInstalling GopherJS and necessary packages ...\033[0m"
 	go get -u github.com/gopherjs/gopherjs
-	go get -u github.com/siongui/gopherjs-utils
+	go get -u github.com/siongui/godom
 	@#go get -u ${PKG}
 
 deploy:

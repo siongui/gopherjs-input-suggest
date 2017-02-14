@@ -67,6 +67,8 @@ References
 
        `HTML DOM Style minWidth Property - W3Schools <http://www.w3schools.com/jsref/prop_style_minwidth.asp>`_
 
+.. [5] `GitHub - siongui/godom: Make DOM manipultation in Go as similar to JavaScript as possible. (via GopherJS) <https://github.com/siongui/godom>`_
+
 
 .. _Ubuntu 16.10: http://releases.ubuntu.com/16.10/
 .. _Go 1.7.4: https://golang.org/dl/
