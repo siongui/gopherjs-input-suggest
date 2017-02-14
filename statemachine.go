@@ -47,9 +47,9 @@ func (s *SuggestMenuStateMachine) ShowSuggestMenu() {
 
 func (s *SuggestMenuStateMachine) setSuggestMenuPosition() {
 	rect := s.Input.GetBoundingClientRect()
-	s.SuggestMenu.Get("style").Set("left",
+	s.SuggestMenu.Style().SetLeft(
 		strconv.FormatFloat(rect.Left(), 'f', -1, 64)+"px")
-	s.SuggestMenu.Get("style").Set("maxWidth",
+	s.SuggestMenu.Style().SetMaxWidth(
 		strconv.FormatFloat(rect.Width(), 'f', -1, 64)+"px")
 }
 
