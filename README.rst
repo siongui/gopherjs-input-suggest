@@ -2,6 +2,9 @@
 GopherJS_ Input Suggest Menu
 ============================
 
+.. image:: https://travis-ci.org/siongui/gopherjs-input-suggest.svg?branch=master
+    :target: https://travis-ci.org/siongui/gopherjs-input-suggest
+
 Development Environment:
 
   - `Ubuntu 20.04`_
@@ -23,7 +26,10 @@ Install GopherJS_ and this package:
 Example
 +++++++
 
-See Demo_ first. The following is key point in the code.
+See demos first. The following is key point in the code.
+
+- Demo_ (no CSS framework)
+- Demo-Bulma_ (with Bulma 0.9.0)
 
 HTML_:
 
@@ -79,6 +85,7 @@ References
 .. _Go: https://golang.org/
 .. _GopherJS: https://github.com/gopherjs/gopherjs
 .. _Demo: https://siongui.github.io/gopherjs-input-suggest/
+.. _Demo-Bulma: https://siongui.github.io/gopherjs-input-suggest/index-bulma.html
 .. _UNLICENSE: https://unlicense.org/
 
 .. |godoc| image:: https://godoc.org/github.com/gopherjs/gopherjs/js?status.png

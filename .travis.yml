@@ -1,0 +1,15 @@
+dist: bionic
+language: go
+go:
+  - 1.12.17
+install:
+  - make install
+script:
+  - make js
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  local_dir: example
+  on:
+    branch: master

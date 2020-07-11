@@ -4,7 +4,7 @@ export PATH := $(GOROOT)/bin:$(GOPATH)/bin:$(PATH)
 
 PKG="github.com/siongui/gopherjs-input-suggest"
 
-devserver: local js
+devserver: fmt local js
 	@echo "\033[92mDevelopment Server Running ...\033[0m"
 	@go run devserver/server.go
 
@@ -18,14 +18,14 @@ fmt:
 	@go fmt example/*.go
 
 local:
-	@[ -d src/${PKG}/ ] || mkdir -p src/${PKG}/
-	@cp *.go src/${PKG}/
+	@[ -d ${GOPATH}/src/${PKG}/ ] || mkdir -p ${GOPATH}/src/${PKG}/
+	@cp *.go ${GOPATH}/src/${PKG}/
 
 install:
 	@echo "\033[92mInstalling GopherJS and necessary packages ...\033[0m"
 	go get -u github.com/gopherjs/gopherjs
 	go get -u github.com/siongui/godom
-	@#go get -u ${PKG}
+	go get -u ${PKG}
 
 deploy:
 	@echo "\033[92mDeploy to GitHub Pages (Project) ...\033[0m"
@@ -33,3 +33,6 @@ deploy:
 	@ghp-import example/
 	@git push origin gh-pages
 	@git checkout example/
+
+clean:
+	rm -rf ${GOPATH}/src/${PKG}/
