@@ -1,6 +1,8 @@
-export GOROOT=$(realpath ../paligo/go)
-export GOPATH=$(realpath ../paligo)
-export PATH := $(GOROOT)/bin:$(GOPATH)/bin:$(PATH)
+ifndef TRAVIS
+	export GOROOT=$(realpath ../paligo/go)
+	export GOPATH=$(realpath ../paligo)
+	export PATH := $(GOROOT)/bin:$(GOPATH)/bin:$(PATH)
+endif
 
 PKG="github.com/siongui/gopherjs-input-suggest"
 
