@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>input suggest demo with Bulma</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.css" integrity="sha256-oSsWW/ca1ll8OVu2t4EKkyb9lmH0Pkd8CXKXnYP4QvA=" crossorigin="anonymous">
+</head>
+<body>
+  <section class="section is-medium py-4">
+    <div class="container">
+
+<!--
+https://stackoverflow.com/questions/56611772/how-to-shorten-bulma-input
+-->
+<div class="columns">
+  <div class="column">
+    <!-- First column -->
+  </div>
+  <div class="column">
+    <!-- Second column -->
+      <div class="field">
+        <div class="control">
+          <input id="word" class="input" type="text" autofocus="autofocus"
+                 tabindex="1">
+        </div>
+      </div>
+  </div>
+  <div class="column">
+    <!-- Third column -->
+  </div>
+</div>
+
+      <div id="main-content" class="content is-large"></div>
+    </div>
+  </section>
+  <script src="suggest.js"></script>
+</body>
+</html>

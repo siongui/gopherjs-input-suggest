@@ -4,9 +4,9 @@ GopherJS_ Input Suggest Menu
 
 Development Environment:
 
-  - `Ubuntu 16.10`_
-    (``Chromium Version 55.0.2883.87 Built on Ubuntu , running on Ubuntu 16.10 (64-bit)``)
-  - `Go 1.7.4`_
+  - `Ubuntu 20.04`_
+  - `Go 1.12.17`_
+  - GopherJS_
 
 
 Install
@@ -69,14 +69,17 @@ References
 
 .. [5] `GitHub - siongui/godom: Make DOM manipultation in Go as similar to JavaScript as possible. (via GopherJS) <https://github.com/siongui/godom>`_
 
+.. [6] | `bulma input suggest dropdown - Google search <https://www.google.com/search?q=bulma+input+suggest+dropdown>`_
+       | `Autocomplete | Buefy <https://buefy.org/documentation/autocomplete/>`_
 
-.. _Ubuntu 16.10: http://releases.ubuntu.com/16.10/
-.. _Go 1.7.4: https://golang.org/dl/
+
+.. _Ubuntu 20.04: https://releases.ubuntu.com/20.04/
+.. _Go 1.12.17: https://golang.org/dl/
 .. _HTML: https://www.google.com/search?q=HTML
 .. _Go: https://golang.org/
 .. _GopherJS: https://github.com/gopherjs/gopherjs
 .. _Demo: https://siongui.github.io/gopherjs-input-suggest/
-.. _UNLICENSE: http://unlicense.org/
+.. _UNLICENSE: https://unlicense.org/
 
 .. |godoc| image:: https://godoc.org/github.com/gopherjs/gopherjs/js?status.png
    :target: https://godoc.org/github.com/gopherjs/gopherjs/js
