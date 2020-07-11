@@ -12,7 +12,8 @@ var css = `
   padding: 0;
   background-color: white;
   overflow: hidden;
-  position: absolute;
+  position: relative;
+  left: 0;
   text-align: left;
   font-size: large;
   border-radius: 4px;

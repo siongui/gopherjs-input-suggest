@@ -35,7 +35,12 @@ HTML_:
 
 .. code-block:: html
 
-  <input id="word" type="text" autofocus="autofocus" tabindex="1">
+  <div style="position: relative;">
+    <input id="word" type="text" autofocus="autofocus" tabindex="1">
+  </div>
+
+The parent of input element is set to *position: relative;*. Also do not use
+*text-align: center;* in parent/ancestor element of input element.
 
 Go_:
 
