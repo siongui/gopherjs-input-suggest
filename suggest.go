@@ -4,6 +4,8 @@ import (
 	. "github.com/siongui/godom"
 )
 
+var state *SuggestMenuStateMachine
+
 // insert style of suggest-menu at the end of head element
 func appendCssToHead() {
 	s := Document.CreateElement("style")
@@ -18,6 +20,16 @@ func createSuggestMenu() *Object {
 	return sm
 }
 
+func UpdateSuggestion() {
+	w := state.GetWord()
+	if w == "" {
+		state.OriginalWord = ""
+		state.HideSuggestMenu()
+	} else {
+		state.UpdateSuggestMenu(w)
+	}
+}
+
 // initialization function
 func BindSuggest(id string, fnSugguestWords func(string) []string) *SuggestMenuStateMachine {
 	input := Document.GetElementById(id)
@@ -27,10 +39,10 @@ func BindSuggest(id string, fnSugguestWords func(string) []string) *SuggestMenuS
 	sm := createSuggestMenu()
 	input.AppendAfter(sm)
 
-	state := NewSuggestMenuStateMachine(input, sm, fnSugguestWords)
+	state = NewSuggestMenuStateMachine(input, sm, fnSugguestWords)
 
 	input.AddEventListener("keyup", func(e Event) {
-		keyEventHandler(e.KeyCode(), state)
+		keyEventHandler(e.KeyCode())
 	})
 
 	return state

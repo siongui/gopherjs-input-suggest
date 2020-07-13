@@ -10,7 +10,7 @@ const (
 	DOWN   = 40
 )
 
-func keyEventHandler(keycode int, state *SuggestMenuStateMachine) {
+func keyEventHandler(keycode int) {
 	if keycode == RETURN {
 		state.HideSuggestMenu()
 		return
@@ -39,11 +39,5 @@ func keyEventHandler(keycode int, state *SuggestMenuStateMachine) {
 		return
 	}
 
-	w := state.GetWord()
-	if w == "" {
-		state.OriginalWord = ""
-		state.HideSuggestMenu()
-	} else {
-		state.UpdateSuggestMenu(w)
-	}
+	UpdateSuggestion()
 }
