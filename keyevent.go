@@ -12,6 +12,7 @@ const (
 
 func keyEventHandler(keycode int) {
 	if keycode == RETURN {
+		// Enter key
 		state.HideSuggestMenu()
 		return
 	}

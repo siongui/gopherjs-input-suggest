@@ -30,6 +30,10 @@ func UpdateSuggestion() {
 	}
 }
 
+func HideSuggestion() {
+	state.HideSuggestMenu()
+}
+
 // initialization function
 func BindSuggest(id string, fnSugguestWords func(string) []string) *SuggestMenuStateMachine {
 	input := Document.GetElementById(id)
