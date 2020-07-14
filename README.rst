@@ -2,8 +2,24 @@
 GopherJS_ Input Suggest Menu
 ============================
 
+.. image:: https://img.shields.io/badge/Language-Go-blue.svg
+   :target: https://golang.org/
+
+.. image:: https://godoc.org/github.com/siongui/gopherjs-input-suggest?status.svg
+   :target: https://godoc.org/github.com/siongui/gopherjs-input-suggest
+
 .. image:: https://travis-ci.org/siongui/gopherjs-input-suggest.svg?branch=master
     :target: https://travis-ci.org/siongui/gopherjs-input-suggest
+
+.. image:: https://gitlab.com/siongui/pali-dictionary/badges/master/pipeline.svg
+    :target: https://gitlab.com/siongui/pali-dictionary/-/commits/master
+
+.. image:: https://goreportcard.com/badge/github.com/siongui/gopherjs-input-suggest
+   :target: https://goreportcard.com/report/github.com/siongui/gopherjs-input-suggest
+
+.. image:: https://img.shields.io/badge/license-Unlicense-blue.svg
+   :target: https://github.com/siongui/gopherjs-input-suggest/blob/master/UNLICENSE
+
 
 Development Environment:
 
@@ -52,6 +68,17 @@ Go_:
   })
 
 See `example <example>`_ directory for complete example.
+
+
+Control Suggest Menu Behavior by Outside Widget
++++++++++++++++++++++++++++++++++++++++++++++++
+
+Two methods *UpdateSuggestion* and *HideSuggestion* are exported so that outside
+widget such as virtual Pali keypad can control the behavior of the suggest menu.
+The reason why Pali keypad need this is that when users click the button on the
+Pali keypad, no keyboard events are fired so that suggest menu will not be
+updated or hidden automatically. As a result, Pali keypad has to update or hide
+the suggest menu manually by these two methods.
 
 
 UNLICENSE
