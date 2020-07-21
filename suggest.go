@@ -50,6 +50,12 @@ func IsShowSuggestMenu() bool {
 	return state.IsShowSuggestMenu
 }
 
+// OnHighlightSelectedWord registers an event handler of which the argument is
+// the selected word.
+func OnHighlightSelectedWord(handler func(string)) {
+	state.HighlightSelectedWordHandler = append(state.HighlightSelectedWordHandler, handler)
+}
+
 // BindSuggest is the initialization function for the input suggest feature.
 // The first argument is the id of the input element. The second argument is a
 // function implemented by you. Given a string, the function will return

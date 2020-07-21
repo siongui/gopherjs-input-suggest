@@ -7,14 +7,15 @@ import (
 )
 
 type SuggestMenuStateMachine struct {
-	Input                    *Object
-	SuggestMenu              *Object
-	FuncSugguestWords        func(string) []string
-	CurrentSelectedWordIndex int
-	IsShowSuggestMenu        bool
-	SuggestedWordsDivs       []*Object
-	OriginalWord             string
-	SuggestedWords           []string
+	Input                        *Object
+	SuggestMenu                  *Object
+	FuncSugguestWords            func(string) []string
+	CurrentSelectedWordIndex     int
+	IsShowSuggestMenu            bool
+	SuggestedWordsDivs           []*Object
+	OriginalWord                 string
+	SuggestedWords               []string
+	HighlightSelectedWordHandler []func(string)
 }
 
 func NewSuggestMenuStateMachine(input, sm *Object, fnSugguestWords func(string) []string) *SuggestMenuStateMachine {
@@ -95,6 +96,9 @@ func (s *SuggestMenuStateMachine) appendWords(words []string) {
 
 func (s *SuggestMenuStateMachine) HighlightSelectedWord(index int) {
 	s.SuggestedWordsDivs[index].ClassList().Add("wordSelected")
+	for _, handler := range state.HighlightSelectedWordHandler {
+		handler(s.SuggestedWords[s.CurrentSelectedWordIndex])
+	}
 }
 
 func (s *SuggestMenuStateMachine) UnhighlightSelectedWord(index int) {
