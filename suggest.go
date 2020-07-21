@@ -45,6 +45,11 @@ func HideSuggestion() {
 	state.HideSuggestMenu()
 }
 
+// IsShowSuggestMenu reports if the suggest menu is visible now.
+func IsShowSuggestMenu() bool {
+	return state.IsShowSuggestMenu
+}
+
 // BindSuggest is the initialization function for the input suggest feature.
 // The first argument is the id of the input element. The second argument is a
 // function implemented by you. Given a string, the function will return
