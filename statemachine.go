@@ -36,12 +36,12 @@ func (s *SuggestMenuStateMachine) SetWord(word string) {
 }
 
 func (s *SuggestMenuStateMachine) HideSuggestMenu() {
-	s.SuggestMenu.ClassList().Add("invisible")
+	s.SuggestMenu.ClassList().Add("invisible-used-in-suggest")
 	s.IsShowSuggestMenu = false
 }
 
 func (s *SuggestMenuStateMachine) ShowSuggestMenu() {
-	s.SuggestMenu.ClassList().Remove("invisible")
+	s.SuggestMenu.ClassList().Remove("invisible-used-in-suggest")
 	s.IsShowSuggestMenu = true
 }
 

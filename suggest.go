@@ -24,7 +24,7 @@ func appendCssToHead() {
 func createSuggestMenu() *Object {
 	sm := Document.CreateElement("div")
 	sm.ClassList().Add("suggest")
-	sm.ClassList().Add("invisible")
+	sm.ClassList().Add("invisible-used-in-suggest")
 	return sm
 }
 

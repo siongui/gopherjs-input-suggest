@@ -25,6 +25,6 @@ var css = `
   color: white;
   cursor: pointer;
 }
-.invisible {
+.invisible-used-in-suggest {
   display: none;
 }`
