@@ -16,6 +16,8 @@ type SuggestMenuStateMachine struct {
 	OriginalWord                 string
 	SuggestedWords               []string
 	HighlightSelectedWordHandler []func(string)
+	UpdateSuggestMenuHandler     []func(string)
+	HideSuggestMenuHandler       []func()
 }
 
 func NewSuggestMenuStateMachine(input, sm *Object, fnSugguestWords func(string) []string) *SuggestMenuStateMachine {
