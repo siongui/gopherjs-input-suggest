@@ -41,6 +41,9 @@ func (s *SuggestMenuStateMachine) SetWord(word string) {
 func (s *SuggestMenuStateMachine) HideSuggestMenu() {
 	s.SuggestMenu.ClassList().Add("invisible-used-in-suggest")
 	s.IsShowSuggestMenu = false
+	for _, handler := range state.HideSuggestMenuHandler {
+		handler()
+	}
 }
 
 func (s *SuggestMenuStateMachine) ShowSuggestMenu() {
@@ -121,6 +124,10 @@ func (s *SuggestMenuStateMachine) UpdateSuggestMenu(word string) {
 		s.setSuggestMenuPosition()
 		s.appendWords(s.SuggestedWords)
 		s.ShowSuggestMenu()
+	}
+
+	for _, handler := range state.UpdateSuggestMenuHandler {
+		handler(word)
 	}
 }
 
